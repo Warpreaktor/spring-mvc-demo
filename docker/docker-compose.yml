@@ -1,0 +1,22 @@
+version: '3.2'
+
+volumes:
+  web-app2-postgres:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: web-app2-postgres
+    volumes:
+      - type: volume
+        source: web-app2-postgres
+        target: /var/lib/postgresql/dataConfig
+    environment:
+      POSTGRES_DB: web-app2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+    ports:
+      - "5432:5432"
+
+# jdbc:postgresql://localhost:5432/web-app2

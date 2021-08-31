@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div th:replace="~{fragments/header::header}">Header</div>
+
+    <h1>Категории</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Наименование</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="category : ${page.getContent()}">
+                <td th:text="${category.id}"/>
+                <td th:text="${category.alias}"/>
+                <td th:text="${category.name}"/>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="~{fragments/footer::footer}">Footer</div>
+</body>
+</html>

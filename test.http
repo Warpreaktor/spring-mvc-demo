@@ -1,0 +1,16 @@
+GET http://localhost:8080/main/alpha
+
+###
+
+POST http://localhost:8080/main/alpha
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "test title",
+    "price": 20
+}
+
+###
+
+GET http://localhost:8089/productEntity/2

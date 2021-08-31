@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукты</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-15 mb-15">
+    <div th:replace="~{fragments/header::header}">Header</div>
+
+    <h1>Продукты</h1>
+    <div>
+        <h5>Фильтры</h5>
+        <form action="#" th:action="@{/product}">
+        <fieldset>
+            <p>min price</p><input type="number" th:value="${minPrice}" name="minPrice" />
+            <p>max price</p><input type="number" th:value="${maxPrice}" name="maxPrice" />
+            <p>Наименование</p><input type="text" th:value="${title}" name="title" />
+            <input type="submit" value="Применить"/>
+        </fieldset>
+        </form>
+    </div>
+    <div class="d-flex flex-row mt-5 mb-5">
+        <div th:each="product : ${page.getContent()}" class="card mr-2" style="width: 18rem;">
+            <img th:src="@{${product.imageLink}}" class="card-img-top" alt="product image">
+            <div class="card-body">
+                <h5 th:text="${product.title}" class="card-title">Product title</h5>
+                <p th:text="'Цена: ' + ${product.price} + ' руб.'" class="card-text">Price</p>
+                <div class="justify-content">
+                    <a th:href="@{product/form(id=${product.id})}" href="#" class="btn btn-primary">Редактировать</a>
+                    <a href="#" class="btn btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>Навигация</p>
+    <ol>
+        <li><a href="category/list" th:href="@{/category/list}">Категории продуктов</a></li>
+    </ol>
+
+    <div th:if="${page.totalPages > 1}" class="pagination" th:each="pageNumber : ${page.getNumberOfElements()}">
+        <a th:href="@{/product(pageNum=${pageNumber})}"
+           th:text="${pageNumber}"
+           th:class="${pageNumber==page.number} ? active"></a>
+    </div>
+
+    <div th:replace="~{fragments/footer::footer}">
+        Footer
+    </div>
+</div>
+
+</body>
+</html>
