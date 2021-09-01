@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -98,6 +97,12 @@ public class ProductController {
         productService.saveWithImage(product, image);
 
         return new RedirectView("/product?pageNum=0");
+    }
+
+    @GetMapping("/delete")
+    public RedirectView deleteProduct(@RequestParam(value = "id", required = true)Long id){
+        productService.deleteById(id);
+        return new RedirectView("/product");
     }
 
 }
