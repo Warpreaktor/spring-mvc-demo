@@ -15,7 +15,6 @@
 
 <div class="container mt-15 mb-15">
     <div th:replace="~{fragments/header::header}">Header</div>
-
     <h1>Продукты</h1>
 
     <div class="container-fluid">
@@ -35,7 +34,6 @@
                     <p>Применить</p><input type="submit" value="Применить"/>
                 </div>
             </div>
-
         </form>
     </div>
 
@@ -62,11 +60,14 @@
         <li><a href="category/list" th:href="@{/category/list}">Категории продуктов</a></li>
     </ol>
 
-    <div th:if="${page.totalPages > 1}" class="pagination" th:each="pageNumber : ${page.getNumberOfElements()}">
-        <a th:href="@{/product(pageNum=${pageNumber})}"
-           th:text="${pageNumber}"
-           th:class="${pageNumber==page.number} ? active"></a>
-    </div>
+    <ul class="row">
+        <tr th:if="${page.totalPages > 1}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+
+            <a th:href="@{/product(pageNum=${pageNumber})}"
+               th:text="${'-' + pageNumber}"
+               th:class="${pageNumber==page.number} ? active"></a>
+        </tr>
+    </ul>
 
     <div th:replace="~{fragments/footer::footer}">
         Footer

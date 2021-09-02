@@ -51,7 +51,13 @@ public class ProductController {
             page = productService.findAllByPriceLessThanEqualAndPriceGreaterThanEqual(maxPrice, minPrice, pageRequest);
         }
 
+        ArrayList<Integer> pageNumbers = new ArrayList<>();
+        for (int i = 0; i < page.getTotalPages(); i++) {
+            pageNumbers.add(i);
+        }
+
         model.addAttribute("page", page);
+        model.addAttribute("pageNumbers", pageNumbers);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("title", title);
