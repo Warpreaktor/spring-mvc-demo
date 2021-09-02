@@ -36,7 +36,7 @@ public class ProductController {
                               @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
                               @RequestParam(value = "title", required = false) String title,
                               Model model) {
-        final int pageSize = 5;
+        final int pageSize = 9;
         Page<ProductEntity> page;
         Pageable pageRequest = PageRequest.of(pageNum == null ? 0 : pageNum, pageSize);
         if (minPrice == null) minPrice = 0;
