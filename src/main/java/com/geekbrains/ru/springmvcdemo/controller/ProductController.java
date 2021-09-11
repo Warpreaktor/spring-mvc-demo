@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class ProductController {
                               @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
                               @RequestParam(value = "title", required = false) String title,
                               Model model) {
-        final int pageSize = 5;
+        final int pageSize = 9;
         Page<ProductEntity> page;
         Pageable pageRequest = PageRequest.of(pageNum == null ? 0 : pageNum, pageSize);
         if (minPrice == null) minPrice = 0;
@@ -52,7 +51,13 @@ public class ProductController {
             page = productService.findAllByPriceLessThanEqualAndPriceGreaterThanEqual(maxPrice, minPrice, pageRequest);
         }
 
+        ArrayList<Integer> pageNumbers = new ArrayList<>();
+        for (int i = 0; i < page.getTotalPages(); i++) {
+            pageNumbers.add(i);
+        }
+
         model.addAttribute("page", page);
+        model.addAttribute("pageNumbers", pageNumbers);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("title", title);
@@ -91,13 +96,18 @@ public class ProductController {
                     .collect(Collectors.joining("\n"));
 
             attributes.addFlashAttribute("violations", violations);
-
             return new RedirectView("/product/form");
         }
 
         productService.saveWithImage(product, image);
 
         return new RedirectView("/product?pageNum=0");
+    }
+
+    @GetMapping("/delete")
+    public RedirectView deleteProduct(@RequestParam(value = "id", required = true)Long id){
+        productService.deleteById(id);
+        return new RedirectView("/product");
     }
 
 }
