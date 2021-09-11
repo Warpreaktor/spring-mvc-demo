@@ -96,7 +96,6 @@ public class ProductController {
                     .collect(Collectors.joining("\n"));
 
             attributes.addFlashAttribute("violations", violations);
-
             return new RedirectView("/product/form");
         }
 
