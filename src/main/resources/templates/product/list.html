@@ -11,8 +11,6 @@
 </head>
 
 <body>
-
-
 <div class="container mt-15 mb-15">
     <div th:replace="~{fragments/header::header}">Header</div>
     <h1>Продукты</h1>
@@ -62,7 +60,6 @@
 
     <ul class="row">
         <tr th:if="${page.totalPages > 1}" class="pagination" th:each="pageNumber : ${pageNumbers}">
-
             <a th:href="@{/product(pageNum=${pageNumber})}"
                th:text="${'-' + pageNumber}"
                th:class="${pageNumber==page.number} ? active"></a>
