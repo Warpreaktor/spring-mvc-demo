@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity save(ProductEntity productEntity) {
-        return productRepository.save(productEntity);
+    public ProductEntity save(ProductEntity product) {
+        return productRepository.save(product);
     }
 
     @Override
@@ -82,8 +82,16 @@ public class ProductServiceImpl implements ProductService {
 
             productRepository.save(savedProduct);
         }
-
         return savedProduct;
     }
+
+    @Override
+    @Transactional
+    public ProductEntity deleteById(Long id){
+        ProductEntity product = findById(id);
+        productRepository.deleteById(id);
+        return product;
+    }
+
 
 }
