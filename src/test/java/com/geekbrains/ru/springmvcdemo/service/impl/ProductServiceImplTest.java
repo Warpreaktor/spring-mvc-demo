@@ -2,6 +2,7 @@ package com.geekbrains.ru.springmvcdemo.service.impl;
 
 import com.geekbrains.ru.springmvcdemo.SpringMvcDemoApplicationTest;
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import org.junit.jupiter.api.Assertions;
@@ -52,8 +53,7 @@ class ProductServiceImplTest extends SpringMvcDemoApplicationTest {
 
     @Test
     void findByIdNotExist() {
-        ProductEntity product = productService.findById(2L);
-
+        ProductDto product = productService.findById(2L);
         Assertions.assertNull(product);
     }
 }

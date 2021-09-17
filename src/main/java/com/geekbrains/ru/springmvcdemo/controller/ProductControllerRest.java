@@ -2,6 +2,7 @@ package com.geekbrains.ru.springmvcdemo.controller;
 
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
+import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.error.ProductErrorResponse;
 import com.geekbrains.ru.springmvcdemo.error.ProductNotFoundException;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
@@ -31,7 +32,7 @@ public class ProductControllerRest {
     }
 
     @GetMapping("/{id}")
-    public ProductEntity getProductById(@PathVariable Long id) {
+    public ProductDto getProductById(@PathVariable(name = "id") Long id) {
         return productService.findById(id);
     }
 

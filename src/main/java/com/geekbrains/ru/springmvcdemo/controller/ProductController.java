@@ -1,6 +1,7 @@
 package com.geekbrains.ru.springmvcdemo.controller;
 
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,12 @@ import javax.validation.Validator;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.PRODUCT;
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.PRODUCT_FORM;
+
 @Controller
 @AllArgsConstructor
-@RequestMapping("/product")
+@RequestMapping(PRODUCT)
 public class ProductController {
 
     private final ProductService productService;
@@ -65,12 +69,12 @@ public class ProductController {
         return "product/list";
     }
 
-    @GetMapping("/form")
+    @GetMapping(PRODUCT_FORM)
     public String addProduct(@RequestParam(value = "id", required = false) Long productId, Model model,
                              @ModelAttribute(value = "violations") String violations) {
 
         if (productId != null) {
-            ProductEntity product = productService.findById(productId);
+            ProductDto product = productService.findById(productId);
             model.addAttribute("product", product);
         } else {
             model.addAttribute("product", new ProductEntity());

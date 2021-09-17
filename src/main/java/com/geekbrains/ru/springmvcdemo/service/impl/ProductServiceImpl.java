@@ -3,6 +3,7 @@ package com.geekbrains.ru.springmvcdemo.service.impl;
 import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
+import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
@@ -20,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +33,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductEntity> findAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public ProductDto findById(long id) {
+        ProductEntity entity = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return ProductDto.builder()
+                .id(entity.getId())
+                .price(entity.getPrice())
+                .title(entity.getTitle())
+                .build();
     }
 
     @Override
@@ -78,12 +89,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public ProductEntity findById(long id) {
-        return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    }
-
-    @Override
     public Page<ProductEntity> findByTitle(String name, Pageable pageable){
         name = "%" + name + "%";
         return productRepository.findByTitle(name, pageable);
@@ -112,13 +117,8 @@ public class ProductServiceImpl implements ProductService {
         }
         return savedProduct;
     }
-
-    @Override
-    @Transactional
-    public ProductEntity deleteById(Long id){
-        ProductEntity product = findById(id);
+    public void deleteById(Long id){
         productRepository.deleteById(id);
-        return product;
     }
 
 

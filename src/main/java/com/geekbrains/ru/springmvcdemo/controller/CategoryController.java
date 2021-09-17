@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.CATEGORY;
+
 @Controller
 @AllArgsConstructor
-@RequestMapping("/category")
+@RequestMapping(CATEGORY)
 public class CategoryController {
 
     private CategoryService categoryService;

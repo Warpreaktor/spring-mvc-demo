@@ -2,6 +2,7 @@ package com.geekbrains.ru.springmvcdemo.service;
 
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
+import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,7 @@ public interface ProductService {
 
     Page<ProductEntity>  findAllByPriceLessThanEqualAndPriceGreaterThanEqual(Integer maxPrice, Integer minPrice, Pageable pageable);
 
-    ProductEntity findById(long id);
+    ProductDto findById(long id);
 
     Page<ProductEntity> findByTitle(String name, Pageable pageable);
 
@@ -34,7 +35,5 @@ public interface ProductService {
 
     ProductEntity saveWithImage(ProductEntity product, MultipartFile image);
 
-    ProductEntity deleteById(Long id);
-
-
+    void deleteById(Long id);
 }
