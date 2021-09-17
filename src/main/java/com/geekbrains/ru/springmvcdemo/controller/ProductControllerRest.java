@@ -27,7 +27,7 @@ public class ProductControllerRest {
     }
 
     @GetMapping("/{id}")
-    public ProductEntity getStudentById(@PathVariable Long id) {
+    public ProductEntity getProductById(@PathVariable Long id) {
         return productService.findById(id);
     }
 
@@ -38,12 +38,12 @@ public class ProductControllerRest {
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ProductEntity updateStudent(@RequestBody ProductEntity product) {
+    public ProductEntity updateProduct(@RequestBody ProductEntity product) {
         return productService.save(product);
     }
 
     @DeleteMapping("/{id}")
-    public int deleteStudent(@PathVariable Long id) {
+    public int deleteProduct(@PathVariable Long id) {
         productService.deleteById(id);
         return HttpStatus.OK.value();
     }
