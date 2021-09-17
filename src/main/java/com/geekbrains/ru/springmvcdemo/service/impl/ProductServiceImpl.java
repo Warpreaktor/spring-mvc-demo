@@ -1,5 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
+import com.geekbrains.ru.springmvcdemo.converter.CategoryConverter;
 import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
@@ -43,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
                 .id(entity.getId())
                 .price(entity.getPrice())
                 .title(entity.getTitle())
+                .categories(CategoryConverter.convertToDto(entity.getCategories()))
                 .build();
     }
 
