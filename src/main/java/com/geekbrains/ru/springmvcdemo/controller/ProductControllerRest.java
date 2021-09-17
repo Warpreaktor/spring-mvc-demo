@@ -12,23 +12,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.*;
+
 @AllArgsConstructor
-@RequestMapping("/api/v1/product")
+@RequestMapping(API_V1 + PRODUCT)
 @RestController
 public class ProductControllerRest {
 
     private ProductService productService;
 
+    @GetMapping
+    public List<ProductEntity> getAllProducts() {
+        return productService.findAll();
+    }
 
     @GetMapping("/{id}")
     public ProductEntity getStudentById(@PathVariable Long id) {
         return productService.findById(id);
     }
 
-    @GetMapping
-    public List<ProductEntity> getAllProducts() {
-        return productService.findAll();
-    }
 
     @PostMapping
     public ProductEntity addProduct(@RequestBody ProductEntity product) {
