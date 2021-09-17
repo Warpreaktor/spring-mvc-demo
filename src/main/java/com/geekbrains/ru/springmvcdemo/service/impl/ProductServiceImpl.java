@@ -1,12 +1,18 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
+import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
+import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import com.geekbrains.ru.springmvcdemo.util.FileUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +28,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
+    private final CategoryService categoryService;
+
     @Override
     public List<ProductEntity> findAll() {
         return productRepository.findAll();
@@ -35,6 +43,16 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductEntity>  findAllByPriceGreaterThanEqual(Integer minPrice, Pageable pageable){
         return productRepository.findAllByPriceLessThanEqual(minPrice, pageable);
     }
+
+    @Override
+    public Page<ProductEntity> findAllByPageAndCategory(Pageable pageable, String categoryAlias) {
+        if (StringUtils.isNotBlank(categoryAlias)){
+            CategoryEntity category = categoryService.findByAlias(categoryAlias);
+            return productRepository.findAllByCategories(category, pageable);
+        }
+        return productRepository.findAll(pageable);
+    }
+
     @Override
     public Page<ProductEntity>  findAllByPriceLessThanEqualAndPriceGreaterThanEqual(Integer maxPrice, Integer minPrice, Pageable pageable){
         if (minPrice < 0 ) minPrice = 0;
@@ -47,6 +65,16 @@ public class ProductServiceImpl implements ProductService {
         }else{
             return productRepository.findAllByPriceGreaterThanEqual(minPrice, pageable);
         }
+    }
+
+    @Override
+    public Page<ProductEntity> findAllBySearchCondition(ProductSearchCondition searchCondition){
+        Pageable pageRequest = PageRequest.of(
+                searchCondition.getPageNum(),
+                searchCondition.getPagesSize(),
+                Sort.by(searchCondition.getSortDirection(), searchCondition.getSortField()));
+
+        return productRepository.findAll(pageRequest);
     }
 
     @Override

@@ -1,12 +1,10 @@
 package com.geekbrains.ru.springmvcdemo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,6 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "category")
+@ToString(exclude={"products", "subCategories"})
+@EqualsAndHashCode(exclude={"id", "products", "subCategories"})
 public class CategoryEntity {
 
     @Id
@@ -34,11 +34,6 @@ public class CategoryEntity {
     @OneToMany(mappedBy = "parentCategory")
     private Set<CategoryEntity> subCategories;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<ProductEntity> products;
+    @ManyToMany(mappedBy = "categories")
+    private Set<ProductEntity> products = new HashSet<>();
 }

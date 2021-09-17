@@ -1,6 +1,7 @@
 package com.geekbrains.ru.springmvcdemo.service;
 
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,10 @@ public interface ProductService {
     Page<ProductEntity>  findAllByPriceLessThanEqual(Integer maxPrice, Pageable pageable);
 
     Page<ProductEntity>  findAllByPriceGreaterThanEqual(Integer minPrice, Pageable pageable);
+
+    Page<ProductEntity> findAllBySearchCondition(ProductSearchCondition searchCondition);
+
+    Page<ProductEntity> findAllByPageAndCategory(Pageable pageable, String categoryAlias);
 
     Page<ProductEntity>  findAllByPriceLessThanEqualAndPriceGreaterThanEqual(Integer maxPrice, Integer minPrice, Pageable pageable);
 

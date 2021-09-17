@@ -1,10 +1,14 @@
 package com.geekbrains.ru.springmvcdemo.controller;
 
 import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
 import com.geekbrains.ru.springmvcdemo.error.ProductErrorResponse;
 import com.geekbrains.ru.springmvcdemo.error.ProductNotFoundException;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +35,12 @@ public class ProductControllerRest {
         return productService.findById(id);
     }
 
+    @PostMapping()
+    public Page<ProductEntity> getProductByCondition(@RequestBody ProductSearchCondition searchCondition){
+        return productService.findAllBySearchCondition(searchCondition);
+    }
 
-    @PostMapping
+    @PostMapping("/new")
     public ProductEntity addProduct(@RequestBody ProductEntity product) {
         return productService.save(product);
     }
