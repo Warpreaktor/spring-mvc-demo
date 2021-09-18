@@ -27,7 +27,7 @@ public class ProductEntity {
     private String title;
 
     @NotNull(message = "Цена продукта обязательна")
-    private Double price;
+    private Integer price;
 
     @Column(name = "image_link")
     private String imageLink;
