@@ -17,7 +17,9 @@ public interface CategoryService {
 
     CategoryEntity findByAlias(String alias);
 
-    CategoryEntity save(CategoryEntity category);
+    int save(CategoryEntity category);
+
+    int update(CategoryEntity category);
 
     Page<CategoryEntity> findAllByPage(Pageable pageable);
 
@@ -26,4 +28,8 @@ public interface CategoryService {
     CategoryTree getCategoryTree();
 
     Set<CategoryDto> findCategoryByProductId(Long id);
+
+    CategoryDto findByIdDto(Long id);
+
+    void deleteById(Long id);
 }
