@@ -1,18 +1,13 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
 import com.geekbrains.ru.springmvcdemo.SpringMvcDemoApplicationTest;
-import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.Optional;
 
 class ProductServiceImplTest extends SpringMvcDemoApplicationTest {
 
@@ -53,7 +48,7 @@ class ProductServiceImplTest extends SpringMvcDemoApplicationTest {
 
     @Test
     void findByIdNotExist() {
-        ProductDto product = productService.findById(2L);
+        ProductDto product = productService.findByIdDto(2L);
         Assertions.assertNull(product);
     }
 }
