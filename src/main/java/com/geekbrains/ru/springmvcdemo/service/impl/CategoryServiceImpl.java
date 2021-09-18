@@ -1,7 +1,7 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
 import com.geekbrains.ru.springmvcdemo.converter.CategoryConverter;
-import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.CategoryEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryDto;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryTree;
 import com.geekbrains.ru.springmvcdemo.repository.CategoryRepository;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    private final ProductService productService;
+//    private final ProductService productService;
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -46,7 +46,20 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<CategoryEntity> findAllByPage(Pageable pageable) {
-        return categoryRepository.findAll(pageable);
+        Page<CategoryEntity> categoryEntities = categoryRepository.findAll(pageable);
+        return categoryEntities;
+    }
+
+    @Override
+    public Page<CategoryDto> findAllByPageDto(Pageable pageable) {
+        Page<CategoryEntity> categoryEntities = categoryRepository.findAll(pageable);
+        categoryEntities.stream()
+                .forEach(entity ->
+                        CategoryDto.builder()
+                                .id(entity.getId())
+                                .name(entity.getName())
+                                .build());
+        return (Page)categoryEntities;
     }
 
     @Override
