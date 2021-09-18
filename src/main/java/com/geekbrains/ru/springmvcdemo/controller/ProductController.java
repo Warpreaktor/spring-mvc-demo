@@ -1,6 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.controller;
 
-import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
@@ -74,7 +74,7 @@ public class ProductController {
                              @ModelAttribute(value = "violations") String violations) {
 
         if (productId != null) {
-            ProductDto product = productService.findById(productId);
+            ProductDto product = productService.findByIdDto(productId);
             model.addAttribute("product", product);
         } else {
             model.addAttribute("product", new ProductEntity());

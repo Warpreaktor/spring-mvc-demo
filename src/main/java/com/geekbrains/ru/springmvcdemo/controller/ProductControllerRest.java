@@ -1,6 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.controller;
 
-import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.error.ProductErrorResponse;
@@ -8,8 +8,6 @@ import com.geekbrains.ru.springmvcdemo.error.ProductNotFoundException;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ public class ProductControllerRest {
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable(name = "id") Long id) {
-        return productService.findById(id);
+        return productService.findByIdDto(id);
     }
 
     @PostMapping()
