@@ -1,10 +1,7 @@
 package com.geekbrains.ru.springmvcdemo.converter;
 
-import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
-import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
-import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryDto;
+import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
-import com.geekbrains.ru.springmvcdemo.service.ProductService;
 
 import java.util.Set;
 import java.util.stream.Collectors;

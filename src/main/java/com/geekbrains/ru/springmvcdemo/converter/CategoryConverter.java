@@ -1,6 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.converter;
 
-import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.CategoryEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryDto;
 
 import java.util.Set;
