@@ -1,5 +1,6 @@
-package com.geekbrains.ru.springmvcdemo.domain;
+package com.geekbrains.ru.springmvcdemo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;

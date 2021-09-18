@@ -1,5 +1,6 @@
-package com.geekbrains.ru.springmvcdemo.domain;
+package com.geekbrains.ru.springmvcdemo.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class ProductEntity {
     @Column(name = "image_link")
     private String imageLink;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "product_category",
