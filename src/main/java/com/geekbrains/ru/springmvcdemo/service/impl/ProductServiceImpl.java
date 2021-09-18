@@ -1,8 +1,8 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
 import com.geekbrains.ru.springmvcdemo.converter.CategoryConverter;
-import com.geekbrains.ru.springmvcdemo.domain.CategoryEntity;
-import com.geekbrains.ru.springmvcdemo.domain.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.CategoryEntity;
+import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
@@ -29,23 +29,11 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final CategoryService categoryService;
+//    private final CategoryService categoryService;
 
     @Override
     public List<ProductEntity> findAll() {
         return productRepository.findAll();
-    }
-
-    @Override
-    @Transactional
-    public ProductDto findById(long id) {
-        ProductEntity entity = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return ProductDto.builder()
-                .id(entity.getId())
-                .price(entity.getPrice())
-                .title(entity.getTitle())
-                .categories(CategoryConverter.convertToDto(entity.getCategories()))
-                .build();
     }
 
     @Override
@@ -59,10 +47,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductEntity> findAllByPageAndCategory(Pageable pageable, String categoryAlias) {
-        if (StringUtils.isNotBlank(categoryAlias)){
-            CategoryEntity category = categoryService.findByAlias(categoryAlias);
-            return productRepository.findAllByCategories(category, pageable);
-        }
+//        if (StringUtils.isNotBlank(categoryAlias)){
+//            CategoryEntity category = categoryService.findByAlias(categoryAlias);
+//            return productRepository.findAllByCategories(category, pageable);
+//        }
         return productRepository.findAll(pageable);
     }
 
@@ -88,6 +76,24 @@ public class ProductServiceImpl implements ProductService {
                 Sort.by(searchCondition.getSortDirection(), searchCondition.getSortField()));
 
         return productRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public ProductEntity findById(long id) {
+        ProductEntity entity = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return entity;
+    }
+
+    @Override
+    @Transactional
+    public ProductDto findByIdDto(long id) {
+        ProductEntity entity = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return ProductDto.builder()
+                .id(entity.getId())
+                .price(entity.getPrice())
+                .title(entity.getTitle())
+                .categories(CategoryConverter.convertToDto(entity.getCategories()))
+                .build();
     }
 
     @Override
