@@ -12,8 +12,6 @@ public interface CartService {
 
     Optional<CartEntity> findCartEntityByProductId(Long id);
 
-    void save(CartEntity cart);
-
-
+    int save(Long id);
 
 }

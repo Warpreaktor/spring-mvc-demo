@@ -20,7 +20,6 @@ import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstan
 @RequestMapping(API_V1 + CART)
 public class CartControllerRest {
 
-    private final ProductService productService;
     private final CartService cartService;
 
     @GetMapping
@@ -30,18 +29,6 @@ public class CartControllerRest {
 
     @PostMapping("/add/{id}")
     public int addProduct(@PathVariable(name = "id") Long id){
-        Optional<CartEntity> entity = cartService.findCartEntityByProductId(id);
-        if (entity.isPresent()){
-            CartEntity cart = entity.get();
-            cart.setQuantity(cart.getQuantity() + 1);
-            cartService.save(cart);
-            return HttpStatus.OK.value();
-        }else{
-            CartEntity cart = new CartEntity();
-            cart.setProduct(productService.findById(id));
-            cart.setQuantity(1);
-            cartService.save(cart);
-            return HttpStatus.OK.value();
-        }
+        return cartService.save(id);
     }
 }
