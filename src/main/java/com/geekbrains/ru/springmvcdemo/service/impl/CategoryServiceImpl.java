@@ -6,14 +6,16 @@ import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryDto;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CategoryTree;
 import com.geekbrains.ru.springmvcdemo.repository.CategoryRepository;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
-import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,13 +37,39 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDto findByIdDto(Long id) {
+        CategoryEntity entity = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return CategoryDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+    }
+
+    @Override
     public CategoryEntity findByAlias(String alias) {
         return categoryRepository.findByAlias(alias).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public CategoryEntity save(CategoryEntity category) {
-        return null;
+    public int save(CategoryEntity category) {
+        categoryRepository.save(category);
+        return HttpStatus.OK.value();
+    }
+
+    @Transactional
+    @Override
+    public int update(CategoryEntity entity){
+        Optional<CategoryEntity> categoryEntity = Optional.empty();
+        if (entity.getId() != null){
+            categoryEntity = categoryRepository.findById(entity.getId());
+        }
+        if (categoryEntity.isPresent()){
+           categoryRepository.save(entity);
+            return HttpStatus.OK.value();
+        } else if (!categoryEntity.isPresent()){
+            return HttpStatus.NOT_FOUND.value();
+        }
+        return HttpStatus.BAD_REQUEST.value();
     }
 
     @Override
@@ -74,4 +102,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }
