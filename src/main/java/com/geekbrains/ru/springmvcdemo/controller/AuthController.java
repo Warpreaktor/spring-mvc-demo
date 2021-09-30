@@ -1,19 +1,15 @@
 package com.geekbrains.ru.springmvcdemo.controller;
 
-import com.geekbrains.ru.springmvcdemo.domain.entity.User;
-import com.geekbrains.ru.springmvcdemo.service.UserService;
+import com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     //TODO добавить домашнюю страничку
     @GetMapping("/")
@@ -21,11 +17,35 @@ public class AuthController {
         return "home";
     }
 
-    //TODO добавить страничку с авторизацией
-    @GetMapping("/auth_page")
-    public String authenticatedPage() {
-        return "authenticated";
+    @GetMapping("/login")
+    public String getLoginForm() {
+        return "/users/login";
     }
+
+
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        model.addAttribute("userExists", true);
+        return "/users/login";
+    }
+
+
+//    @PostMapping("/login")
+//    public String login(Model model, UserEntity user,
+//                        @ModelAttribute("values") ArrayList<String> values,
+//                        @RequestParam(value = "password") String password,
+//                        @RequestParam(value = "email", required = false) String email,
+//                        RedirectAttributes attributes) {
+//        Optional<UserEntity> userEntity = userService.findByUsername(user.getUsername());
+//        if (userEntity.isPresent()){
+//            return "/product"
+//        }else{
+//            model.addAttribute("loginError", true);
+//            return "/users/login";
+//        }
+//    }
 
     //TODO Добавить админскую панель
     @GetMapping("/admin")
@@ -33,9 +53,10 @@ public class AuthController {
         return "admin";
     }
 
-    @GetMapping("/user_info")
-    public String daoTestPage(Principal principal) {
-        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("Unable to find user by username: " + principal.getName()));
-        return "Authenticated user info: " + user.getUsername() + " : " + user.getEmail();
-    }
+
+//    @GetMapping("/user_info")
+//    public String daoTestPage(Principal principal) {
+//        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("Unable to find user by username: " + principal.getName()));
+//        return "Authenticated user info: " + user.getUsername() + " : " + user.getEmail();
+//    }
 }
