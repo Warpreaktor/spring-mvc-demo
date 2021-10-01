@@ -25,8 +25,6 @@ public class RegistryController {
         return "/users/registration";
     }
 
-    //TODO обработать кейсы:
-    //1. Пользователь уже существует
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") @Valid UserEntity user,
                                 BindingResult bindingResult,

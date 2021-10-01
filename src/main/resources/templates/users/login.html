@@ -11,8 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body th:style="'background: url(/wallpapers/login_page.jpg) no-repeat center center fixed;'">
-
 <div>
     <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
         <div class="panel panel-info">
@@ -20,7 +18,7 @@
                 <div class="panel-title">Sign In</div>
             </div>
             <div style="padding-top: 30px" class="panel-body">
-                <form th:action="@{/authenticateTheUser}" method="POST" class="form-horizontal">
+                <form th:action="@{/login}" method="POST" class="form-horizontal">
                     <div class="form-group">
                         <div class="col-xs-15">
                             <div>
