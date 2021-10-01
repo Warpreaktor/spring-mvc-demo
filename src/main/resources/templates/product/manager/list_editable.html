@@ -17,7 +17,7 @@
 
     <div class="container-fluid">
         <h5>Поиск</h5>
-        <form action="#" th:action="@{/product}">
+        <form action="#" th:action="@{/templates/product}">
             <div class="row justify-content-start">
                 <div class="col-2">
                     <p>min price</p><input type="number" th:value="${minPrice}" name="minPrice"/>
@@ -41,12 +41,16 @@
             <div class="card-body">
                 <h5 th:text="${product.title}" class="card-title">Product title</h5>
                 <p th:text="'Цена: ' + ${product.price} + ' руб.'" class="card-text">Price</p>
+                <div class="row justify-content">
+                    <a href="#" th:href="@{product/form(id=${product.id})}" class="btn btn-primary">Редактировать</a>
+                    <a sec:authorize="hasRole('ADMIN')" href="#" th:href="@{product/delete(id=${product.id})}" class="btn btn-danger">Удалить</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="alert alert-info" role="alert" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
-        <a th:href="@{/product/manager/list_editable}" class="alert-link">Редактировать продукты</a>
+    <div class="row justify-content" >
+        <a href="#" th:href="@{product/form}" class="btn btn-primary" >Добавить продукт</a>
     </div>
 
     <p>Навигация</p>

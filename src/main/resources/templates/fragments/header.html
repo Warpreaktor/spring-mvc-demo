@@ -5,10 +5,8 @@
     <body>
         <nav class="navbar navbar-dark bg-dark" th:fragment="header">
             <span class="navbar-brand mb-0 h1">My super shop</span>
-            <div sec:authorize="isAuthenticated()">
-                Authenticated username:
-                <div sec:authentication="principal.username"></div>
-                Authenticated user roles:
+            <div sec:authorize="isAuthenticated()" class="text-info">
+                <div sec:authentication="principal.username" class="text-info"></div>
                 <div sec:authentication="principal.authorities"></div>
                 <a href="/logout">Выйти</a>
             </div>
