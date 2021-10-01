@@ -37,6 +37,9 @@ public class UserEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<RoleEntity> roles;
 
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked = true;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -49,7 +52,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNonLocked;
     }
 
     @Override

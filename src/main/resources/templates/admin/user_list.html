@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags for BootStrap-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Продукты</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="d-flex row mt-8 mb-8">
+    <!--Таблица пользователей-->
+    <table class="table table-striped" id="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">role</th>
+            <th scope="col">isAccountNonLocked</th>
+            <th scope="col">Бан</th>
+        </tr>
+        </thead>
+        <tbody th:each="user : ${usersPage}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.roles}"></td>
+            <td th:text="${user.accountNonLocked}"></td>
+            <td>
+                <a href="#" th:href="@{/admin/lock-user(id=${user.id})}" class="btn btn-danger">Заблокировать</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+        <a href="#" th:href="@{/product}">На главную</a>
+<!-- Required js scripts for BootStrap-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

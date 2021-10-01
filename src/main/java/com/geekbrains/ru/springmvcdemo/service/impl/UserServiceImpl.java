@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -65,5 +67,20 @@ public class UserServiceImpl implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
+    }
+
+    public Page<UserEntity> findAllByPage(Pageable pageRequest) {
+        return userRepository.findAll(pageRequest);
+    }
+
+    public Optional<UserEntity> findById(Long id){
+        return userRepository.findById(id);
+    }
+
+    @Transactional
+    public void lockUser(Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        user.get().setAccountNonLocked(false);
+        saveUser(user.get());
     }
 }
