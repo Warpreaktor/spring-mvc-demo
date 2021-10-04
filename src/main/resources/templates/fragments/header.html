@@ -1,10 +1,21 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark" th:fragment="header">
-            <span class="navbar-brand mb-0 h1">GB.Барахолка</span>
+            <span class="navbar-brand mb-0 h1">My super shop</span>
+            <div sec:authorize="isAuthenticated()" class="text-info">
+                <div sec:authentication="principal.username" class="text-info"></div>
+                <div sec:authentication="principal.authorities"></div>
+                <a href="/logout">Выйти</a>
+            </div>
+            <div class="b-enter" sec:authorize="!isAuthenticated()">
+                <a href="/login" class="enter__link popup-link" data-tab="enter">Войти</a>
+                |
+                <a href="/registration" class="enter__link popup-link" data-tab="reg">Регистрация</a>
+            </div>
         </nav>
+
     </body>
 </html>
