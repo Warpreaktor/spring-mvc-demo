@@ -47,4 +47,14 @@ public class AdminController {
         userService.lockUser(id);
         return "redirect:/admin/users";
     }
+    @GetMapping("/disable-user")
+    public String disableUser(@RequestParam(value = "id")Long id){
+        userService.disable(id);
+        return "redirect:/admin/users";
+    }
+    @GetMapping("/enable-user")
+    public String enableUser(@RequestParam(value = "id")Long id){
+        userService.enable(id);
+        return "redirect:/admin/users";
+    }
 }

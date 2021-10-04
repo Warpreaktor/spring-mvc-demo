@@ -83,4 +83,16 @@ public class UserServiceImpl implements UserDetailsService {
         user.get().setAccountNonLocked(false);
         saveUser(user.get());
     }
+    @Transactional
+    public void disable(Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        user.get().setEnabled(false);
+        saveUser(user.get());
+    }
+    @Transactional
+    public void enable(Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        user.get().setEnabled(true);
+        saveUser(user.get());
+    }
 }

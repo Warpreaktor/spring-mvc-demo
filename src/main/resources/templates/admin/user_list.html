@@ -30,9 +30,12 @@
             <td th:text="${user.username}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.roles}"></td>
-            <td th:text="${user.accountNonLocked}"></td>
+            <td th:text="${user.enabled}"></td>
             <td>
-                <a href="#" th:href="@{/admin/lock-user(id=${user.id})}" class="btn btn-danger">Заблокировать</a>
+                <a href="#" th:href="@{/admin/disable-user(id=${user.id})}" class="btn btn-danger"
+                   th:if="${user.enabled}">Заблокировать</a>
+                <a href="#" th:href="@{/admin/enable-user(id=${user.id})}" class="btn btn-danger"
+                   th:if="${not user.enabled}">Разблокировать</a>
             </td>
         </tr>
         </tbody>

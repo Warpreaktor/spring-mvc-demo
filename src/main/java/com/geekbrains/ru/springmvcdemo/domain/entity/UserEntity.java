@@ -40,6 +40,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "account_non_locked")
     private boolean accountNonLocked = true;
 
+    @Column(name = "enabled")
+    private boolean enabled = true;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -62,6 +65,6 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
