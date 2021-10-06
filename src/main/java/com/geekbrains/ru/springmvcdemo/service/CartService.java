@@ -1,17 +1,14 @@
 package com.geekbrains.ru.springmvcdemo.service;
 
-import com.geekbrains.ru.springmvcdemo.domain.entity.CartEntity;
-import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
+import com.geekbrains.ru.springmvcdemo.domain.dto.CartDto;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 
 public interface CartService {
 
-    Map<ProductEntity, Integer> findAll();
+    Set<CartDto> findAllDtoByOwnerId(Long ownerId);
 
-    Optional<CartEntity> findCartEntityByProductId(Long id);
+    int add(Long productId);
 
-    int save(Long id);
 
 }

@@ -22,14 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-
-//    private final CategoryService categoryService;
 
     @Override
     public List<ProductEntity> findAll() {
@@ -79,8 +78,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity findById(long id) {
-        ProductEntity entity = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public Optional<ProductEntity> findById(long id) {
+        Optional<ProductEntity> entity = productRepository.findById(id);
         return entity;
     }
 

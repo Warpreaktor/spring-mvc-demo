@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.*;
+
 @Controller
 @AllArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping(ADMIN)
 public class AdminController {
 
     private final UserServiceImpl userService;
 
-    @GetMapping("/users")
+    @GetMapping(USERS)
     public String getUserList(Model model,
                        @RequestParam(value = "pageNum", required = false) Integer pageNum){
 
@@ -42,17 +44,17 @@ public class AdminController {
         return "/admin/user_list";
     }
 
-    @GetMapping("/lock-user")
+    @GetMapping(LOCK_USER)
     public String lockUser(@RequestParam(value = "id")Long id){
         userService.lockUser(id);
         return "redirect:/admin/users";
     }
-    @GetMapping("/disable-user")
+    @GetMapping(DISABLE_USER)
     public String disableUser(@RequestParam(value = "id")Long id){
         userService.disable(id);
         return "redirect:/admin/users";
     }
-    @GetMapping("/enable-user")
+    @GetMapping(ENABLE_USER)
     public String enableUser(@RequestParam(value = "id")Long id){
         userService.enable(id);
         return "redirect:/admin/users";

@@ -41,12 +41,19 @@
             <div class="card-body">
                 <h5 th:text="${product.title}" class="card-title">Product title</h5>
                 <p th:text="'Цена: ' + ${product.price} + ' руб.'" class="card-text">Price</p>
+                <div class="row justify-content">
+                    <a th:href="@{/cart/add(userName=${userName}, productId=${product.id})}" class="btn btn-primary"
+                       th:method="post">В корзину</a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="alert alert-info" role="alert" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
         <a th:href="@{/product/manager/list_editable}" class="alert-link">Редактировать продукты</a>
+    </div>
+    <div class="alert alert-info" role="alert" sec:authorize="isAuthenticated()">
+        <a th:href="@{/cart(userName=${userName})}" class="alert-link">Корзина</a>
     </div>
 
     <p>Навигация</p>

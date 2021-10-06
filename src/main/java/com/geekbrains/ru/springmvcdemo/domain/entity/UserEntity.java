@@ -1,12 +1,15 @@
 package com.geekbrains.ru.springmvcdemo.domain.entity;
 
+import com.geekbrains.ru.springmvcdemo.domain.dto.CartDto;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,6 +40,9 @@ public class UserEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<RoleEntity> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<CartEntity> cart;
+
     @Column(name = "account_non_locked")
     private boolean accountNonLocked = true;
 
@@ -66,5 +72,17 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public List<CartDto> getCartDto(){
+        ArrayList<CartDto> cartDtoList = new ArrayList();
+        for(CartEntity i : cart) {
+            CartDto cartDto = CartDto.builder()
+                    .product(i.getProduct())
+                    .quantity(i.getQuantity())
+                    .build();
+            cartDtoList.add(cartDto);
+        }
+        return cartDtoList;
     }
 }

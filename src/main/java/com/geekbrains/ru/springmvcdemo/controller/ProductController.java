@@ -2,13 +2,17 @@ package com.geekbrains.ru.springmvcdemo.controller;
 
 import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
+import com.geekbrains.ru.springmvcdemo.domain.entity.UserEntity;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
+import com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +35,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final UserServiceImpl userService;
 
     private final Validator validator;
 
