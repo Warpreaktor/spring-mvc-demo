@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -25,7 +26,7 @@ public interface ProductService {
 
     ProductDto findByIdDto(long id);
 
-    ProductEntity findById(long id);
+    Optional<ProductEntity> findById(long id);
 
     Page<ProductEntity> findByTitle(String name, Pageable pageable);
 

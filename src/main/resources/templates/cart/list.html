@@ -4,44 +4,35 @@
     <!-- Required meta tags for BootStrap-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Продукты</title>
+    <title>Корзина</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
-<div class="d-flex row mt-8 mb-8">
-    <!--Таблица пользователей-->
+<div class="container row mt-15 mb-15">
+    <div th:replace="~{fragments/header::header}">Header</div>
+    <!--Таблица товаров в корзине-->
     <table class="table table-striped" id="table">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">username</th>
-            <th scope="col">email</th>
-            <th scope="col">role</th>
-            <th scope="col">isAccountNonLocked</th>
-            <th scope="col">Бан</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена</th>
         </tr>
         </thead>
-        <tbody th:each="user : ${usersPage}">
+        <tbody th:each="product : ${cart}">
         <tr>
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.roles}"></td>
-            <td th:text="${user.enabled}"></td>
-            <td>
-                <a href="#" th:href="@{/admin/disable-user(id=${user.id})}" class="btn btn-danger"
-                   th:if="${user.enabled}">Заблокировать</a>
-                <a href="#" th:href="@{/admin/enable-user(id=${user.id})}" class="btn btn-danger"
-                   th:if="${not user.enabled}">Разблокировать</a>
-            </td>
+            <td th:text="${product.getProduct().getTitle()}"></td>
+            <td th:text="${product.getQuantity()}"></td>
+            <td th:text="${product.getProduct().getPrice()}"></td>
         </tr>
         </tbody>
     </table>
-    </div>
 </div>
+</div>
+
         <a href="#" th:href="@{/product}">На главную</a>
 <!-- Required js scripts for BootStrap-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

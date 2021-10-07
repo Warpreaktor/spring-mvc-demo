@@ -1,54 +1,51 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
+import com.geekbrains.ru.springmvcdemo.converter.CartConverter;
+import com.geekbrains.ru.springmvcdemo.domain.dto.CartDto;
+import com.geekbrains.ru.springmvcdemo.domain.dto.UserDto;
 import com.geekbrains.ru.springmvcdemo.domain.entity.CartEntity;
 import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.repository.CartRepository;
-import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import com.geekbrains.ru.springmvcdemo.service.CartService;
+import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-
-    private final ProductRepository productRepository;
+    private final ProductService productService;
+    private final UserServiceImpl userService;
 
     @Override
-    public Map<ProductEntity, Integer> findAll() {
-        Map<ProductEntity, Integer> cart = new HashMap<>();
-        for(CartEntity obj : cartRepository.findAll()){
-            cart.put(obj.getProduct(), obj.getQuantity());
-        }
-        return cart;
+    public Set<CartDto> findAllDtoByOwnerId(Long ownerId){
+        Set<CartEntity> cartEntities = cartRepository.findAllByOwnerId(ownerId);
+        return CartConverter.convertToDto(cartEntities);
     }
 
     @Override
-    public int save(Long id) {
-        Optional<CartEntity> entity = cartRepository.findCartEntityByProductId(id);
-        if (entity.isPresent()){
-            CartEntity cart = entity.get();
-            cart.setQuantity(cart.getQuantity() + 1);
-            cartRepository.save(cart);
+    public int add(Long productId) {
+        //Инициализация пользователя
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserDto> user = userService.findByUsername(userName);
+        Optional<CartEntity> userCartEntity = cartRepository.findCartEntityByProductIdAndOwnerId(productId, user.get().getId());
+        if (userCartEntity.isPresent()) {
+            userCartEntity.get().setQuantity(userCartEntity.get().getQuantity() + 1);
+            cartRepository.save(userCartEntity.get());
             return HttpStatus.OK.value();
-        }else{
-            CartEntity cart = new CartEntity();
-            cart.setProduct(productRepository.findById(id).get());
-            cart.setQuantity(1);
-            cartRepository.save(cart);
+        } else {
+            cartRepository.save(CartEntity.builder()
+                    .owner(userService.findById(user.get().getId()).get())
+                    .product(productService.findById(productId).get())
+                    .quantity(1)
+                    .build());
             return HttpStatus.OK.value();
         }
-    }
-
-    @Override
-    public Optional<CartEntity> findCartEntityByProductId(Long id) {
-        return cartRepository.findCartEntityByProductId(id);
     }
 }
