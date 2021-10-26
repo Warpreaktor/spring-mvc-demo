@@ -4,7 +4,6 @@ import com.geekbrains.ru.springmvcdemo.converter.CartConverter;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CartDto;
 import com.geekbrains.ru.springmvcdemo.domain.dto.UserDto;
 import com.geekbrains.ru.springmvcdemo.domain.entity.CartEntity;
-import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.repository.CartRepository;
 import com.geekbrains.ru.springmvcdemo.service.CartService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
