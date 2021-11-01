@@ -74,17 +74,6 @@ public class ProductController {
         return "product/list";
     }
 
-    @GetMapping("/manager/list_editable")
-    public String getEditableList(@RequestParam(value = "pageNum", required = false) Integer pageNum,
-                           @RequestParam(value = "minPrice", required = false) Integer minPrice,
-                           @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
-                           @RequestParam(value = "title", required = false) String title,
-                           Model model){
-        getProducts(pageNum, minPrice, maxPrice, title, model);
-        return "product/manager/list_editable";
-
-    }
-
     @GetMapping(PRODUCT_FORM)
     public String addProduct(@RequestParam(value = "id", required = false) Long productId, Model model,
                              @ModelAttribute(value = "violations") String violations) {

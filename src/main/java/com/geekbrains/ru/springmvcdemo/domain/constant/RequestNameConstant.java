@@ -7,6 +7,8 @@ public class RequestNameConstant {
     //Общие имена
     public final static String HOME_PAGE = "/";
     public final static String ADD = "/add";
+    public final static String EDIT = "/edit";
+    public final static String SAVE = "/save";
 
 
     //Товары и категории
