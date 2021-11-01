@@ -4,7 +4,6 @@ import com.geekbrains.ru.springmvcdemo.converter.CartConverter;
 import com.geekbrains.ru.springmvcdemo.domain.dto.CartDto;
 import com.geekbrains.ru.springmvcdemo.domain.dto.UserDto;
 import com.geekbrains.ru.springmvcdemo.domain.entity.CartEntity;
-import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.repository.CartRepository;
 import com.geekbrains.ru.springmvcdemo.service.CartService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.ws.http.HTTPException;
 import java.util.*;
 
 @Service
@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public int add(Long productId) {
+    public HttpStatus add(Long productId) throws HTTPException{
         //Инициализация пользователя
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserDto> user = userService.findByUsername(userName);
@@ -38,14 +38,14 @@ public class CartServiceImpl implements CartService {
         if (userCartEntity.isPresent()) {
             userCartEntity.get().setQuantity(userCartEntity.get().getQuantity() + 1);
             cartRepository.save(userCartEntity.get());
-            return HttpStatus.OK.value();
+            return HttpStatus.OK;
         } else {
             cartRepository.save(CartEntity.builder()
                     .owner(userService.findById(user.get().getId()).get())
                     .product(productService.findById(productId).get())
                     .quantity(1)
                     .build());
-            return HttpStatus.OK.value();
+            return HttpStatus.OK;
         }
     }
 }

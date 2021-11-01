@@ -1,4 +1,4 @@
-package com.geekbrains.ru.springmvcdemo.controller;
+package com.geekbrains.ru.springmvcdemo.controller.rest;
 
 import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.ProductSearchCondition;
@@ -24,13 +24,13 @@ public class ProductControllerRest {
 
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping("all")
     public List<ProductEntity> getAllProducts() {
         return productService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ProductDto getProductById(@PathVariable(name = "id") Long id) {
+    @GetMapping("/one")
+    public ProductDto getProductById(@RequestParam(value = "id") Long id) {
         return productService.findByIdDto(id);
     }
 
@@ -39,13 +39,8 @@ public class ProductControllerRest {
         return productService.findAllBySearchCondition(searchCondition);
     }
 
-    @PostMapping("/new")
+    @PostMapping(SAVE)
     public ProductEntity addProduct(@RequestBody ProductEntity product) {
-        return productService.save(product);
-    }
-
-    @PutMapping()
-    public ProductEntity updateProduct(@RequestBody ProductEntity product) {
         return productService.save(product);
     }
 

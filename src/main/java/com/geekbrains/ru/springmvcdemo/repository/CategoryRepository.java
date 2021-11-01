@@ -17,5 +17,4 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
      * Т.е. это что-то вроде where
      */
     Set<CategoryEntity> findByProducts_Id(Long id);
-
 }

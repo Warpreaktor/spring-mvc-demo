@@ -5,7 +5,11 @@ public class RequestNameConstant {
     public final static String API_V1 = "/api/v1";
 
     //Общие имена
+    public final static String HOME_PAGE = "/";
     public final static String ADD = "/add";
+    public final static String EDIT = "/edit";
+    public final static String SAVE = "/save";
+
 
     //Товары и категории
     public final static String PRODUCT = "/product";
@@ -14,7 +18,7 @@ public class RequestNameConstant {
 
     //Корзина покупателя
     public final static String CART = "/cart";
-    public final static String BY = "/by";
+    public final static String BUY = "/buy";
 
     //админская панель
     public final static String ADMIN = "/admin";

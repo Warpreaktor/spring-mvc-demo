@@ -1,4 +1,4 @@
-package com.geekbrains.ru.springmvcdemo.controller;
+package com.geekbrains.ru.springmvcdemo.controller.rest;
 
 import com.geekbrains.ru.springmvcdemo.domain.entity.UserEntity;
 import com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl;
