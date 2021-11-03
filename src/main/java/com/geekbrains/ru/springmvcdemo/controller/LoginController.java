@@ -23,6 +23,7 @@ public class LoginController {
 
     @GetMapping("/login-error")
     public String loginError(Model model) {
+
         model.addAttribute("loginError", true);
         model.addAttribute("userExists", true);
         return "/users/login";
