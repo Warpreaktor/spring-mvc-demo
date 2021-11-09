@@ -47,10 +47,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductEntity> findAllByPageAndCategory(Pageable pageable, String categoryAlias) {
-//        if (StringUtils.isNotBlank(categoryAlias)){
-//            CategoryEntity category = categoryService.findByAlias(categoryAlias);
-//            return productRepository.findAllByCategories(category, pageable);
-//        }
         return productRepository.findAll(pageable);
     }
 
@@ -125,6 +121,11 @@ public class ProductServiceImpl implements ProductService {
         }
         return savedProduct;
     }
+
+    public void delete(ProductEntity productEntity){
+        productRepository.delete(productEntity);
+    }
+
     public void deleteById(Long id){
         productRepository.deleteById(id);
     }

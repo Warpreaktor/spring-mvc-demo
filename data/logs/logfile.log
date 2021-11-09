@@ -1,0 +1,2 @@
+WARN  2021-11-09 10:27:37 [http-nio-8080-exec-10] com.geekbrains.ru.springmvcdemo.aspect.LogAspect (LogAspect.java:22) - Product "ruuu" added in shop
+WARN  2021-11-09 10:27:38 [http-nio-8080-exec-3] com.geekbrains.ru.springmvcdemo.aspect.LogAspect (LogAspect.java:28) - Product "ruuu" deleted

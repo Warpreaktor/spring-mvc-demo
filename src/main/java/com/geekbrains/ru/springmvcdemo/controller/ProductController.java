@@ -2,7 +2,6 @@ package com.geekbrains.ru.springmvcdemo.controller;
 
 import com.geekbrains.ru.springmvcdemo.domain.entity.ProductEntity;
 import com.geekbrains.ru.springmvcdemo.domain.dto.ProductDto;
-import com.geekbrains.ru.springmvcdemo.domain.entity.UserEntity;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl;
@@ -11,8 +10,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.PRODUCT;
-import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.PRODUCT_FORM;
+import static com.geekbrains.ru.springmvcdemo.domain.constant.RequestNameConstant.FORM;
 
 @Controller
 @AllArgsConstructor
@@ -74,7 +71,7 @@ public class ProductController {
         return "product/list";
     }
 
-    @GetMapping(PRODUCT_FORM)
+    @GetMapping(FORM)
     public String addProduct(@RequestParam(value = "id", required = false) Long productId, Model model,
                              @ModelAttribute(value = "violations") String violations) {
 

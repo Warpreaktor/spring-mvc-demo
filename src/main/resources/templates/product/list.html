@@ -19,7 +19,7 @@
 <body>
 <div class="container mt-15 mb-15" ng-controller="productController">
     <!--Modal-->
-    <div class="modal fade" id="modalFormProduct" tabindex="-1" role="dialog" aria-labelledby="createEvent" aria-hidden="true">
+    <div class="modal fade" id="modalFormProduct" tabindex="-1" role="dialog" aria-labelledby="createEvent" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" id="submit" class="btn btn-primary" >Save</button>
                         </div>
 
                     </form>
@@ -100,19 +100,25 @@
                             <button class="btn btn-primary" ng-click="addToCart(product)">В корзину</button>
                         </div>
                         <div class="row justify-content" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
+<!--                        <div class="row justify-content" >-->
                             <button type="button" role="button" class="btn btn-primary"
                                     data-toggle="modal" data-target="#modalFormProduct"
                                     id="modalProductForm" style="cursor: pointer"
-                                    data-product-id="{{product.id}}" data-product-title="{{product.title}}"
-                                    data-product-price="{{product.price}}">Редактировать</button>
-                            <a sec:authorize="hasRole('ADMIN')" href="#" th:href="@{product/delete(id=${product.id})}" class="btn btn-danger">Удалить</a>
+                                    data-product-id="{{product.id}}">Редактировать</button>
+                            <button sec:authorize="hasRole('ADMIN')" ng-click="deleteProduct(product)"
+                                    type="button" role="button" class="btn btn-danger">Удалить</button>
                         </div>
                     </div>
             </div>
         </div>
 
     <div class="row justify-content" sec:authorize="hasAnyRole('MANAGER', 'ADMIN')">
-        <a href="#" th:href="@{product/form}" class="btn btn-primary" >Добавить продукт</a>
+<!--    <div class="row justify-content" >-->
+        <button type="button" role="button" class="btn btn-primary"
+                data-toggle="modal" data-target="#modalFormProduct"
+                data-product-id="null" id="modalAddProduct" style="cursor: pointer"
+                >Добавить продукт</button>
+        <a href="#" th:href="@{/product/form}" class="btn btn-primary" >Добавить продукт(не работает)</a>
     </div>
     <div class="alert alert-info" role="alert" sec:authorize="isAuthenticated()">
         <a th:href="@{/cart(userName=${userName})}" class="alert-link">Корзина</a>
