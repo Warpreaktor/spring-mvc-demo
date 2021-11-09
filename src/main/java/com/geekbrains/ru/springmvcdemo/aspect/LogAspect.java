@@ -14,18 +14,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
-    private static final Logger LOGGER = LogManager.getLogger(LogAspect.class);
+    private static final Logger LOGGER = LogManager.getLogger(LogAspect.class.getName());
 
-//    @Before("execution(* com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl.saveUser(user))")
-//    public void beforeLogin(UserEntity user){
-//        LOGGER.info("User " + user.getUsername() + "try to save");
-//    }
-
-    @AfterReturning("execution(* com.geekbrains.ru.springmvcdemo.service.impl.ProductServiceImpl.save())")
-    public void beforeSave(JoinPoint joinPoint){
-        ProductEntity product = (ProductEntity) joinPoint.getArgs()[1];
-        LOGGER.info("Product " + product.getTitle() + " added in shop");
-        LOGGER.error("ABRACADABRA");
+    @AfterReturning("execution(* com.geekbrains.ru.springmvcdemo.service.impl.ProductServiceImpl.save(..))")
+    public void afterSave(JoinPoint joinPoint){
+        ProductEntity product = (ProductEntity) joinPoint.getArgs()[0];
+        LOGGER.warn("Product \"" + product.getTitle() + "\" added in shop");
     }
+
+    @AfterReturning("execution(* com.geekbrains.ru.springmvcdemo.service.impl.ProductServiceImpl.delete(..))")
+    public void afterDelete(JoinPoint joinPoint){
+        ProductEntity product = (ProductEntity) joinPoint.getArgs()[0];
+        LOGGER.warn("Product \"" + product.getTitle() + "\" deleted");
+    }
+
+//    @AfterReturning("execution(* com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl.loadUserByUsername(..))")
+//    public void afterLogin(JoinPoint joinPoint){
+//        UserEntity user = (UserEntity) joinPoint.getArgs()[0];
+//        LOGGER.warn("User " + user + " logged in");
+//    }
 
 }

@@ -12,7 +12,7 @@
 
     <Loggers>
         <Logger name="springLogger" level="debug" />
-        <Root level="info">
+        <Root level="warn">
             <AppenderRef ref="STDOUT" />
             <AppenderRef ref="FILE" />
         </Root>
