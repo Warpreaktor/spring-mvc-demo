@@ -44,9 +44,9 @@ public class ProductControllerRest {
         return productService.save(product);
     }
 
-    @DeleteMapping("/{id}")
-    public int deleteProduct(@PathVariable Long id) {
-        productService.deleteById(id);
+    @PostMapping(DELETE)
+    public int deleteProduct(@RequestBody ProductEntity product) {
+        productService.delete(product);
         return HttpStatus.OK.value();
     }
 

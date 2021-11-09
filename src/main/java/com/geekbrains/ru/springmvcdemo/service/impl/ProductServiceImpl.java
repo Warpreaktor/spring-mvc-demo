@@ -121,6 +121,11 @@ public class ProductServiceImpl implements ProductService {
         }
         return savedProduct;
     }
+
+    public void delete(ProductEntity productEntity){
+        productRepository.delete(productEntity);
+    }
+
     public void deleteById(Long id){
         productRepository.deleteById(id);
     }

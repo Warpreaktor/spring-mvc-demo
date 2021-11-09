@@ -4,17 +4,20 @@ public class RequestNameConstant {
     //REST API
     public final static String API_V1 = "/api/v1";
 
-    //Общие имена
+    //Общие глаголы
     public final static String HOME_PAGE = "/";
     public final static String ADD = "/add";
     public final static String EDIT = "/edit";
     public final static String SAVE = "/save";
+    public final static String DELETE = "/delete";
 
 
     //Товары и категории
     public final static String PRODUCT = "/product";
-    public final static String PRODUCT_FORM = "/form";
     public final static String CATEGORY = "/category";
+
+    //Общие существительные
+    public final static String FORM = "/form"; //представление веб формы любого объекта
 
     //Корзина покупателя
     public final static String CART = "/cart";

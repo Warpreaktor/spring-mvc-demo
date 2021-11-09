@@ -36,5 +36,7 @@ public interface ProductService {
 
     ProductEntity saveWithImage(ProductEntity product, MultipartFile image);
 
+    void delete(ProductEntity productEntity);
+
     void deleteById(Long id);
 }
