@@ -1,6 +1,2 @@
-INFO  2021-11-03 16:36:35 [background-preinit] org.hibernate.validator.internal.util.Version (Version.java:21) - HV000001: Hibernate Validator 6.2.0.Final
-INFO  2021-11-03 16:36:37 [main] org.hibernate.jpa.internal.util.LogHelper (LogHelper.java:31) - HHH000204: Processing PersistenceUnitInfo [name: default]
-INFO  2021-11-03 16:36:37 [main] org.hibernate.Version (Version.java:46) - HHH000412: Hibernate Core {5.4.3.Final}
-INFO  2021-11-03 16:36:37 [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager (JavaReflectionManager.java:49) - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-INFO  2021-11-03 16:36:37 [main] org.hibernate.dialect.Dialect (Dialect.java:158) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
-INFO  2021-11-03 16:36:38 [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+WARN  2021-11-09 10:27:37 [http-nio-8080-exec-10] com.geekbrains.ru.springmvcdemo.aspect.LogAspect (LogAspect.java:22) - Product "ruuu" added in shop
+WARN  2021-11-09 10:27:38 [http-nio-8080-exec-3] com.geekbrains.ru.springmvcdemo.aspect.LogAspect (LogAspect.java:28) - Product "ruuu" deleted

@@ -104,9 +104,9 @@
                             <button type="button" role="button" class="btn btn-primary"
                                     data-toggle="modal" data-target="#modalFormProduct"
                                     id="modalProductForm" style="cursor: pointer"
-                                    data-product-id="{{product.id}}" data-product-title="{{product.title}}"
-                                    data-product-price="{{product.price}}">Редактировать</button>
-                            <a sec:authorize="hasRole('ADMIN')" href="#" th:href="@{product/delete(id=${product.id})}" class="btn btn-danger">Удалить</a>
+                                    data-product-id="{{product.id}}">Редактировать</button>
+                            <button sec:authorize="hasRole('ADMIN')" ng-click="deleteProduct(product)"
+                                    type="button" role="button" class="btn btn-danger">Удалить</button>
                         </div>
                     </div>
             </div>

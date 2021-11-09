@@ -44,6 +44,12 @@ angular.module('web-shop', ['ngStorage'])
             $('#modalFormProduct').modal('hide');
         };
 
+        $scope.deleteProduct = function (product) {
+            $http.post(contextPath + "/product/delete", product).then(function successCallback(){
+                $scope.loadProducts(1)
+            });
+        };
+
         $('#modalFormProduct').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var id = button.data('productId');
