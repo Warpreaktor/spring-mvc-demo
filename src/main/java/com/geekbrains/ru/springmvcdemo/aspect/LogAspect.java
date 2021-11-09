@@ -28,10 +28,10 @@ public class LogAspect {
         LOGGER.warn("Product \"" + product.getTitle() + "\" deleted");
     }
 
-//    @AfterReturning("execution(* com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl.loadUserByUsername(..))")
-//    public void afterLogin(JoinPoint joinPoint){
-//        UserEntity user = (UserEntity) joinPoint.getArgs()[0];
-//        LOGGER.warn("User " + user + " logged in");
-//    }
+    @Before("execution(* com.geekbrains.ru.springmvcdemo.service.impl.UserServiceImpl.loadUserByUsername(..))")
+    public void afterLogin(JoinPoint joinPoint){
+        String username = (String)joinPoint.getArgs()[0];
+        LOGGER.warn("User \"" + username + "\" tried to log in");
+    }
 
 }
