@@ -1,0 +1,38 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.com/geekbrains/ru/springmvcdemo/product"
+           xmlns:ca="http://www.com/geekbrains/ru/springmvcdemo/category"
+           targetNamespace="http://www.com/geekbrains/ru/springmvcdemo/product"
+           elementFormDefault="qualified">
+
+    <xs:import schemaLocation="category.xsd" namespace="http://www.com/geekbrains/ru/springmvcdemo/category"/>
+
+    <xs:element name="getAllProductsRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getAllProductsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="products" maxOccurs="unbounded" type="tns:product"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProductByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="product">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="price" type="xs:integer"/>
+            <xs:element name="categories" maxOccurs="unbounded" type="ca:category"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
